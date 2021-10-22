@@ -18,13 +18,19 @@ fetch("https://botw-compendium.herokuapp.com/api/v2")
 
 //función para crear las cartas individuales
 function templateCard(id, objeto) {
-  document.getElementById("tablero").innerHTML +=
-    "<div class=card id=" + id + "></div>";
+  document.getElementById("tablero").innerHTML+=`
+  <div class=card  id=${id}>
+      <div class=front >
+          <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
+      </div>
+      <div class="back">
+      <img src="https://i.pinimg.com/originals/1a/58/3f/1a583fac90a845c9103e66f10ca9f19b.jpg" onclick="girarCarta(${id})" alt="">
+      </div>
+  </div>
+ `;
+
   document.getElementById("tablero").style.margin = "10px";
   document.getElementById("tablero").style.marginBottom = "10px";
-  document.getElementById(
-    id
-  ).innerHTML += `<img src=${objeto.image} alt="zelda objet">`;
 }
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
@@ -34,4 +40,13 @@ function genPosRan() {
     return Math.random() - 0.5;
   });
   return arrayOriginal;
+}
+
+function resetTablero(){
+  document.getElementById("tablero").innerHTML="";
+}
+
+function girarCarta (id){
+  console.log("hola")
+  document.getElementById(id).classList.toggle("flipCard");
 }
