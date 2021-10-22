@@ -56,24 +56,39 @@ function resetTablero(){
 let valor1=null;
 let valor2;
 let indice1;
+let valoresEncontrados=[];
 function girarCarta (id){
+  console.log(valoresEncontrados);
+  if(indice1==id){
+    return;
+  }
+  for(let i=0;i<valoresEncontrados.length;i++){
+    if(valoresEncontrados[i]==id){
+      return;
+    }
+  }
+
   if(valor1==null){
     document.getElementById(id).classList.toggle("flipCard");
     valor1=posiciones[id];
     //console.log(valor1);
     indice1=id;
-    return 0;
   }
   
   else{
     document.getElementById(id).classList.toggle("flipCard");
     valor2=posiciones[id];
-    console.log(id);
+    //console.log(id);
       if(valor1!=valor2){
         girarDos(indice1,id);  
       }
+      else{
+        valoresEncontrados.push(indice1);
+        valoresEncontrados.push(id);
+        ganar();
+      }
       valor1=null;
-      return 0;
+      indice1=null;
   }
 }
 
@@ -89,7 +104,13 @@ function girarDos(id1,id2){
       document.getElementById(id1).classList.toggle("flipCard");
       document.getElementById(id2).classList.toggle("flipCard")}
       ,1000);
-   
-
 };
+
+function ganar(){
+  if(valoresEncontrados.length==16){
+      setTimeout(function (){
+      valoresEncontrados=[];
+      document.getElementById("tablero").innerHTML="<h1>Enhorabuena has ganado!</h1>"
+  },1000);
+}};
 
