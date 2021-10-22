@@ -59,7 +59,7 @@ function girarCarta (id){
 
 function girarTodas(){
 
-  for(let i=0;i<15;i++){
+  for(let i=0;i<16;i++){
     girarCarta (i)
   }
 }
