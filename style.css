@@ -86,7 +86,7 @@ header h1 {
   padding-left: 15px;
   font-family: "Rampart One", cursive;
 }
-main {
+#main-landing-page {
   display: grid;
   justify-content: space-around;
   justify-items: center;
