@@ -2,7 +2,7 @@
 mostrarTablero()
 
 //pendiente de cambiar api y modificar llamada
-
+let posiciones;
 function mostrarTablero(){
   fetch("https://botw-compendium.herokuapp.com/api/v2")
   .then((res) => res.json())
@@ -12,18 +12,19 @@ function mostrarTablero(){
 
     document.getElementById("tablero").innerHTML = "";
     //generamos una array de posiciones aleatorias con parejas
-    let posiciones = genPosRan();
+    posiciones = genPosRan();
     //recorremos las posiciones
     for (let i = 0; i < posiciones.length; i++) {
       //para cada posición mostramos una carta
-      templateCard(i, catObject[posiciones[i]]);
+
+      templateCard(i, catObject[posiciones[i]],posiciones[i]);
     }
     //girar todas las cartas a los 2 segundos
     setTimeout(girarTodas,2000);      
   });
 }
 //función para crear las cartas individuales
-function templateCard(id, objeto) {
+function templateCard(id, objeto, posicion) {
   document.getElementById("tablero").innerHTML+=`
   <div class=card  id=${id}>
       <div class=front >
@@ -52,15 +53,43 @@ function resetTablero(){
   mostrarTablero()   
 }
 
+let valor1=null;
+let valor2;
+let indice1;
 function girarCarta (id){
-
-  document.getElementById(id).classList.toggle("flipCard");
+  if(valor1==null){
+    document.getElementById(id).classList.toggle("flipCard");
+    valor1=posiciones[id];
+    //console.log(valor1);
+    indice1=id;
+    return 0;
+  }
+  
+  else{
+    document.getElementById(id).classList.toggle("flipCard");
+    valor2=posiciones[id];
+    console.log(id);
+      if(valor1!=valor2){
+        girarDos(indice1,id);  
+      }
+      valor1=null;
+      return 0;
+  }
 }
 
 function girarTodas(){
 
   for(let i=0;i<16;i++){
-    girarCarta (i)
+    document.getElementById(i).classList.toggle("flipCard");
   }
 }
+
+function girarDos(id1,id2){
+    setTimeout(function (){
+      document.getElementById(id1).classList.toggle("flipCard");
+      document.getElementById(id2).classList.toggle("flipCard")}
+      ,1000);
+   
+
+};
 
