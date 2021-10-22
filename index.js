@@ -1,6 +1,10 @@
+//queremos que al entrar a tablero.html ya se muestre el tablero
+mostrarTablero()
+
 //pendiente de cambiar api y modificar llamada
 
-fetch("https://botw-compendium.herokuapp.com/api/v2")
+function mostrarTablero(){
+  fetch("https://botw-compendium.herokuapp.com/api/v2")
   .then((res) => res.json())
   .then(function cogerData(data) {
     let catObject;
@@ -14,8 +18,10 @@ fetch("https://botw-compendium.herokuapp.com/api/v2")
       //para cada posición mostramos una carta
       templateCard(i, catObject[posiciones[i]]);
     }
+    //girar todas las cartas a los 2 segundos
+    setTimeout(girarTodas,2000);      
   });
-
+}
 //función para crear las cartas individuales
 function templateCard(id, objeto) {
   document.getElementById("tablero").innerHTML+=`
@@ -43,10 +49,18 @@ function genPosRan() {
 }
 
 function resetTablero(){
-  document.getElementById("tablero").innerHTML="";
+  mostrarTablero()   
 }
 
 function girarCarta (id){
-  console.log("hola")
+
   document.getElementById(id).classList.toggle("flipCard");
 }
+
+function girarTodas(){
+
+  for(let i=0;i<15;i++){
+    girarCarta (i)
+  }
+}
+
