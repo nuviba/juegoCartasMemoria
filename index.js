@@ -57,9 +57,10 @@ let valor1=null;
 let valor2;
 let indice1;
 let valoresEncontrados=[];
+let tresNo=false;
 function girarCarta (id){
   console.log(valoresEncontrados);
-  if(indice1==id){
+  if(indice1==id||tresNo){
     return;
   }
   for(let i=0;i<valoresEncontrados.length;i++){
@@ -76,6 +77,7 @@ function girarCarta (id){
   }
   
   else{
+    tresNo=true;
     document.getElementById(id).classList.toggle("flipCard");
     valor2=posiciones[id];
     //console.log(id);
@@ -83,6 +85,7 @@ function girarCarta (id){
         girarDos(indice1,id);  
       }
       else{
+        tresNo=false;
         valoresEncontrados.push(indice1);
         valoresEncontrados.push(id);
         ganar();
@@ -101,6 +104,7 @@ function girarTodas(){
 
 function girarDos(id1,id2){
     setTimeout(function (){
+      tresNo=false;
       document.getElementById(id1).classList.toggle("flipCard");
       document.getElementById(id2).classList.toggle("flipCard")}
       ,1000);
