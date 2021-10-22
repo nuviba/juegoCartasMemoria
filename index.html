@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego Memoria</title>
-    <link rel="stylesheet" href="./style.css">
-    
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Rampart+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div id="title">
+        <img src="./iconos/cartas.png" alt="cartas_icono" />
+        <h1>MEMORY GAME</h1>
+        <img src="./iconos/cartas.png" alt="cartas_icono" />
+      </div>
+    </header>
+    <main>
+      <div id="intro">
+        <h1>¿Tienes memoria fotografica?</h1>
+        <h2>Instrucciones:</h2>
+        <ol>
+          <li>Para ganar el juego debes desbloquear todas las cartas.</li></br></br></br>
+          <li>
+            ¿Como se desbloquean? Se desbloqueará una pareja de carta cuando la
+            imagen de ambas cartas coincidan.
+          </li></br></br></br>
+          <li>
+            El mejor jugador, será aquel que menos intentos haya necesitado.
+          </li>
+        </ol>
+        
+      </div>
 
-<body>
-
-<header>
-    <button type="button" onclick="mostrarTablero()" >INICIAR</button>
-</header>
-    
-<main>
-    <div id=tablero></div>
-</main>
-
-<footer>
-
-</footer>   
-</body>
-<script src="./index.js"></script>
+      <div>
+        <a href="tablero.html">
+        <button id="play-button" type="button" onclick="mostrarTablero()"><img id="play-button-img"src="./iconos/play-button.png" alt="cartas_icono" /></button>
+      </a>
+    </div>
+      
+    </main>
+    <footer>
+      <div>
+        <p>Email:<a href="#">info@code4play.com</a><br /><br /></p>
+      </div>
+      <div id="social">
+        <a href="#"><img src="./iconos/facebook.png" alt="facebook" /></a>
+        <a href="#"><img src="./iconos/instagram.png" alt="instagram" /></a>
+        <a href="#"><img src="./iconos/twitter.png" alt="twitter" /></a>
+      </div>
+      <div class="copyright">
+        <p>Copyright © 2021 · All Rights Reserved - Code4play</p>
+      </div>
+    </footer>
+  </body>
 </html>

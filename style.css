@@ -1,16 +1,16 @@
-header {
+/* header {
   display: flex;
   justify-content: space-around;
-}
-main {
+} */
+/* main {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   height: max-content;
-  min-height: 800px;
+  min-height: 200px;
   border: solid white;
   border-radius: 10px;
-}
+} */
 #tablero {
   display: flex;
   flex-wrap: wrap;
@@ -29,4 +29,122 @@ main {
   padding: 10px;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+/* ------------- Landing page - Start Game --------------*/
+body {
+  margin: 0px;
+}
+
+header {
+  background-color: #1f9d1f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0px;
+  padding: 15px 0px 15px 0px;
+  min-height: 75px;
+}
+
+#title {
+  display: flex;
+}
+
+header img {
+  width: 130px;
+  height: 75px;
+}
+header h1 {
+  margin-bottom: 0px;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-family: "Rampart One", cursive;
+}
+main {
+  display: grid;
+  justify-content: space-around;
+  justify-items: center;
+  flex-direction: column;
+  background-image: url("./media/fondoweb.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80%;
+  width: 100%;
+  height: auto;
+  position: absolute;
+}
+#intro {
+  border-color: black;
+  color: white;
+  background-color: rgba(3, 9, 2, 0.345);
+  font-family: "Luckiest Guy", cursive;
+  width: 520px;
+  height: 420px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  align-items: center;
+  text-align: justify;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+footer {
+  background-color: #f5ecec;
+  max-width: 100%;
+  width: 100%;
+  margin: 0%;
+  margin-top: 8%;
+  /* padding: 10px 0px 0px 15px; */
+  columns: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: rgb(28, 40, 218);
+  font-style: unset;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  position: fixed;
+  position: 0;
+  bottom: 0;
+}
+
+#social {
+  text-align: center;
+}
+#social p {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+#social img {
+  width: 30px;
+  height: 30px;
+}
+.copyright {
+  margin-right: 3%;
+}
+
+/* ---- Button -----*/
+#play-button {
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  margin-bottom: 100px;
+}
+#play-button-img {
+  height: 200px;
+  width: 240px;
 }
