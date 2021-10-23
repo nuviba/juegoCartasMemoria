@@ -83,6 +83,7 @@ header img {
   width: 130px;
   height: 75px;
 }
+
 header h1 {
   margin-bottom: 0px;
   padding-right: 15px;
@@ -120,6 +121,22 @@ header h1 {
   padding: 10px;
   margin-bottom: 10px;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+#main-Tablero {
+  display: block;
+}
+#tablero-Up {
+  display: flex;
+  justify-content: space-around;
+}
+
+#contador {
+  display: flex;
+  font-family: "Rampart One", cursive;
+}
+
+#numJugadas {
+  margin-left: 5px;
 }
 footer {
   background-color: #f5ecec;
@@ -174,3 +191,33 @@ footer {
   height: 200px;
   width: 240px;
 }
+
+#back-button-img {
+  width: 70px;
+  height: 70px;
+}
+#back-button-img:hover {
+  background-color: #df8b0cb2;
+  transform: translate(-5px, 0px);
+}
+#back-button {
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+}
+#reset-button-img {
+  width: 140px;
+  height: 50px;
+}
+#reset-button {
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+}
+#reset-button-img:hover {
+  width: 150px;
+  height: 60px;
+}
+

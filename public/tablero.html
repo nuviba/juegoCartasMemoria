@@ -10,6 +10,18 @@
 
   <body>
     <header>
+      <div>
+        <a href="index.html">
+          <button id="back-button" type="button">
+            <img
+              id="back-button-img"
+              src="./iconos/arrow-volveratras.png"
+              alt="cartas_icono"
+            />
+          </button>
+        </a>
+      </div>
+
       <div id="title">
         <img src="./iconos/cartas.png" alt="cartas_icono" />
         <h1>MEMORY GAME</h1>
@@ -23,16 +35,21 @@
       />
     </header>
 
-    <main>
-      <div id="contador">
-        <h2>Nº de jugadas:</h2>
-        <div id="numJugadas"></div>
+    <main id="main-Tablero">
+      <div id="tablero-Up">
+        <button id="reset-button" type="button" onclick="resetTablero()">
+          <img
+            id="reset-button-img"
+            src="./iconos/reset-button.png"
+            alt="cartas_icono"
+          />
+        </button>
+        <div id="contador">
+          <h2>Nº de jugadas:</h2>
+          <div id="numJugadas"></div>
+        </div>
       </div>
-      <div id="contadorAciertos">
-        <h2>Nº de aciertos:</h2>
-        <div id="numAciertos"></div>
-      </div>
-      <button type="button" onclick="resetTablero()">RESET</button>
+
       <div id="tablero"></div>
     </main>
     <footer>

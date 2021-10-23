@@ -7,8 +7,8 @@ mostrarTablero();
 
 let numJugadas = 0;
 document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
-let numAciertos = 0;
-document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
+// let numAciertos = 0;
+// document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
 
 //pendiente de cambiar api y modificar llamada
 let posiciones;
@@ -22,6 +22,7 @@ function mostrarTablero() {
       document.getElementById("tablero").innerHTML = "";
       //generamos una array de posiciones aleatorias con parejas
       posiciones = genPosRan();
+      console.log(posiciones);
       //recorremos las posiciones
       for (let i = 0; i < posiciones.length; i++) {
         //para cada posición mostramos una carta
@@ -64,7 +65,7 @@ function resetTablero() {
   numJugadas = 0;
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
   numAciertos = 0;
-  document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
+  // document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
   mostrarTablero();
 }
 
@@ -77,7 +78,6 @@ let tresNo = false;
 /*función principal del juego, gira las cartas al hacer click, 
 comprueba pareja. Si es pareja se queda volteada, si no se gira al 1 sec. */
 function girarCarta(id) {
-  ganar();
   //si pulsamos la misma carta dos veces o ya hay dos giradas no deja pulsar una tercera
   if (indice1 == id || tresNo) {
     return;
