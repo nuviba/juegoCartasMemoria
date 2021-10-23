@@ -1,6 +1,13 @@
 //queremos que al entrar a tablero.html ya se muestre el tablero
 mostrarTablero()
 
+//---------CONTADOR-------------
+
+let numJugadas=0;
+document.getElementById("numJugadas").innerHTML=`<h2>${numJugadas}</h2>`;
+let numAciertos=0;
+document.getElementById("numAciertos").innerHTML=`<h2>${numAciertos}</h2>`;
+
 //pendiente de cambiar api y modificar llamada
 let posiciones;
 function mostrarTablero(){
@@ -48,7 +55,12 @@ function genPosRan() {
 }
 
 function resetTablero(){
-  mostrarTablero()   
+  numJugadas=0;
+  document.getElementById("numJugadas").innerHTML=`<h2>${numJugadas}</h2>`;
+  numAciertos=0;
+  document.getElementById("numAciertos").innerHTML=`<h2>${numAciertos}</h2>`;
+  mostrarTablero()
+  
 }
 
 let valor1=null;
@@ -80,6 +92,8 @@ function girarCarta (id){
     tresNo=true;
     document.getElementById(id).classList.toggle("flipCard");
     valor2=posiciones[id];
+    numJugadas++//aumentamos en 1 el num de jugadas
+    document.getElementById("numJugadas").innerHTML=`<h2>${numJugadas}</h2>`;
       //si las dos cartas no son iguales las giramos al segundo
       if(valor1!=valor2){
         girarDos(indice1,id);  
@@ -89,6 +103,8 @@ function girarCarta (id){
         tresNo=false;
         valoresEncontrados.push(indice1);
         valoresEncontrados.push(id);
+        numAciertos++ //aumentamos en 1 el valor de aciertos
+        document.getElementById("numAciertos").innerHTML=`<h2>${numAciertos}</h2>`;
         ganar();//función que comprueba si hemos terminado el juego
       }
       valor1=null;
@@ -135,4 +151,6 @@ function handleResponse(response) {
           return json;
       });
 }
+
+
 
