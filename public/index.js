@@ -56,7 +56,7 @@ function templateCard(id, objeto, posicion) {
           <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
       </div>
       <div class="back">
-      <img src="https://i.pinimg.com/originals/1a/58/3f/1a583fac90a845c9103e66f10ca9f19b.jpg" onclick="girarCarta(${id})" alt="">
+      <img src="./media/card-back.png" onclick="girarCarta(${id})" alt="">
       </div>
   </div></th>
  `
@@ -155,19 +155,35 @@ function ganar() {
     setTimeout(function () {
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
-      <h1>Enhorabuena has ganado!</h1>
-      <h2>¿Deseas registrar tu puntuación?</h2>
-      <div id="saveScoreQuestion">
-        <button onclick="showInput()">Si</button>
-        <button onclick="showRanking()">No</button>
+      <div id="fireworks-flip"></div>
+      <div id="ranking">
+        <h1>¡Enhorabuena has ganado!</h1>
+        <h2>¿Deseas registrar tu puntuación?</h2>
+        <div id="saveScoreQuestion">
+          <button onclick="showInput()">Si</button>
+          <button onclick="showRanking()">No</button>
+        </div>
+        <div id="saveScore">
+          <h2>Escribe tu nombre o apodo:</h2>
+          
+          <input type="text" id="name" placeholder="Nombre">
+          <button onclick="saveScoreAndShowRanking()">Guardar</button>
+        </div>
       </div>
-      <div id="saveScore">
-        <h2>Escribe tu nombre o apodo:</h2>
-        
-        <input type="text" id="name" placeholder="Nombre">
-        <button onclick="saveScoreAndShowRanking()">Guardar</button>
-      </div>
+      <div id="fireworks"></div>
       `;
+      document.getElementById("tablero").style.justifyContent = "center";
+      document.getElementById("tablero").style.backgroundImage =
+        "url('./media/jungle-night-background.jpeg')";
+      document.getElementById("tablero").style.fontFamily =
+        "Rampart One, cursive";
+      document.getElementById("tablero").style.color = "white";
+      document.getElementById("tablero").style.display = "flex";
+      document.getElementById("tablero").style.backgroundSize = "cover";
+      document.getElementById("tablero").style.minHeight = "80%";
+      document.getElementById("tablero").style.width = "100%";
+      document.getElementById("tablero").style.position = "absolute";
+      document.getElementById("tablero").style.marginLeft = "0px";
     }, 1000);
   }
 }
@@ -180,11 +196,13 @@ function showRanking() {
   fetch("/api/ranking")
     .then((res) => res.json())
     .then((data) => {
-      let htmlCode = "";
+      let htmlCode = "<h1>RANKING</h1>";
       for (let i = 0; i < data.results.length; i++) {
         htmlCode += `
+        <div id="listaRanking">
         <h2>${data.results[i].name}</h2>
-        <h3>${data.results[i].score}</h3>\n
+        <h3>${data.results[i].score}</h3>
+        </div>
         `;
       }
       document.getElementById(
