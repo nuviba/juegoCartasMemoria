@@ -1,8 +1,15 @@
 //const methods = require("methods");
+let tamaño=document.getElementById("dificultad").value;
+function cambiarDificultad(){
+
+   tamaño=document.getElementById("dificultad").value;
+   mostrarTablero();
+
+}
 
 //queremos que al entrar a tablero.html ya se muestre el tablero
-mostrarTablero();
 
+mostrarTablero();
 //---------CONTADOR-------------
 
 let numJugadas = 0;
@@ -19,18 +26,17 @@ function mostrarTablero() {
     .then(function cogerData(data) {
       let catObject;
       catObject = data.data.creatures.non_food;
-
       document.getElementById("tablero").innerHTML = "";
       //generamos una array de posiciones aleatorias con parejas
       posiciones = genPosRan();
       console.log(posiciones);
       //recorremos las posiciones
-      
+      //creamos tabla para alinear las cartas
       let tabla=`<table class=tableCards>`;
-      for (let i=0;i<4;i++){
+      for (let i=0;i<tamaño;i++){
           tabla+=`<tr>`
-          for(let j=0;j<4;j++){
-          tabla+=templateCard(j+4*i, catObject[posiciones[j+4*i]], posiciones[j+4*i])
+          for(let j=0;j<tamaño;j++){
+          tabla+=templateCard(j+tamaño*i, catObject[posiciones[j+tamaño*i]], posiciones[j+tamaño*i])
           }
           tabla+=`</tr>`
       }   
@@ -49,7 +55,7 @@ function mostrarTablero() {
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
-  
+  //insertamos cada div en una celda de tabla 
   let carta=`
   <th><div class=card  id=${id}>
       <div class=front >
@@ -66,7 +72,11 @@ function templateCard(id, objeto, posicion) {
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
 function genPosRan() {
-  let arrayOriginal = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+  let arrayOriginal = [];
+  for (let i=0;i<tamaño*tamaño/2;i++){
+    arrayOriginal.push(i);
+    arrayOriginal.push(i);
+  }
   arrayOriginal.sort(function () {
     return Math.random() - 0.5;
   });
@@ -136,8 +146,8 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
-  blockStart=false; 
-  for (let i = 0; i < 16; i++) {
+  blockStart=false;
+  for (let i = 0; i < tamaño*tamaño; i++) {
     document.getElementById(i).classList.toggle("flipCard");
   }
 }
@@ -151,7 +161,7 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-  if (valoresEncontrados.length == 16) {
+  if (valoresEncontrados.length == tamaño*tamaño) {
     setTimeout(function () {
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
