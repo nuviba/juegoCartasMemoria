@@ -4,15 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MEMORY GAME</title>
+    <title>Memory Game</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
     <header>
+      <div>
+        <a href="index.html">
+          <button id="back-button" type="button">
+            <img
+              id="back-button-img"
+              src="./iconos/arrow-volveratras.png"
+              alt="cartas_icono"
+            />
+          </button>
+        </a>
+      </div>
+
       <div id="title">
         <img src="./iconos/cartas.png" alt="cartas_icono" />
-        <h1>Memory Game</h1>
+        <h1>MEMORY GAME</h1>
         <img src="./iconos/cartas.png" alt="cartas_icono" />
       </div>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,10 +35,21 @@
       />
     </header>
 
-    <main>
-      <div id="contador"><h2>Nº de jugadas:</h2> <div id="numJugadas"></div></div>
-      <div id="contadorAciertos"><h2>Nº de aciertos:</h2> <div id="numAciertos"></div></div>
-      <button type="button" onclick="resetTablero()" >RESET</button>
+    <main id="main-Tablero">
+      <div id="tablero-Up">
+        <button id="reset-button" type="button" onclick="resetTablero()">
+          <img
+            id="reset-button-img"
+            src="./iconos/reset-button.png"
+            alt="cartas_icono"
+          />
+        </button>
+        <div id="contador">
+          <h2>Nº de jugadas:</h2>
+          <div id="numJugadas"></div>
+        </div>
+      </div>
+
       <div id="tablero"></div>
     </main>
     <footer>
@@ -45,4 +68,3 @@
   </body>
   <script src="./index.js"></script>
 </html>
-
