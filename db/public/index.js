@@ -12,6 +12,7 @@ document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
 
 //pendiente de cambiar api y modificar llamada
 let posiciones;
+let blockStart=true;
 function mostrarTablero() {
   fetch("https://botw-compendium.herokuapp.com/api/v2")
     .then(handleResponse)
@@ -61,6 +62,7 @@ function genPosRan() {
 }
 
 function resetTablero() {
+  blockStart=true;
   numJugadas = 0;
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
   numAciertos = 0;
@@ -79,7 +81,7 @@ comprueba pareja. Si es pareja se queda volteada, si no se gira al 1 sec. */
 function girarCarta(id) {
   ganar();
   //si pulsamos la misma carta dos veces o ya hay dos giradas no deja pulsar una tercera
-  if (indice1 == id || tresNo) {
+  if (indice1 == id || tresNo||blockStart) {
     return;
   }
   //si pulsamos una carta de una pareja ya encontrada no la volteamos
@@ -123,6 +125,7 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
+  blockStart=false;
   for (let i = 0; i < 16; i++) {
     document.getElementById(i).classList.toggle("flipCard");
   }
