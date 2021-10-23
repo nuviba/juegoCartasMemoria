@@ -52,6 +52,11 @@
   width: 90%;
 }
 
+/* ------- Registro puntuaciones ------*/
+#saveScore {
+  display: none;
+}
+
 /* ------------- Landing page - Start Game --------------*/
 body {
   margin: 0px;
