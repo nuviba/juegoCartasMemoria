@@ -137,8 +137,7 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-  //if (valoresEncontrados.length == 16) {
-  if (16 == 16) {
+  if (valoresEncontrados.length == 16) {
     setTimeout(function () {
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
