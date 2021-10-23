@@ -12,6 +12,7 @@ document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
 
 //pendiente de cambiar api y modificar llamada
 let posiciones;
+let blockStart=true;
 function mostrarTablero() {
   fetch("https://botw-compendium.herokuapp.com/api/v2")
     .then(handleResponse)
@@ -24,11 +25,19 @@ function mostrarTablero() {
       posiciones = genPosRan();
       console.log(posiciones);
       //recorremos las posiciones
-      for (let i = 0; i < posiciones.length; i++) {
-        //para cada posición mostramos una carta
+      
+      let tabla=`<table class=tableCards>`;
+      for (let i=0;i<4;i++){
+          tabla+=`<tr>`
+          for(let j=0;j<4;j++){
+          tabla+=templateCard(j+4*i, catObject[posiciones[j+4*i]], posiciones[j+4*i])
+          }
+          tabla+=`</tr>`
+      }   
+      tabla+=`</table>`
 
-        templateCard(i, catObject[posiciones[i]], posiciones[i]);
-      }
+      document.getElementById("tablero").innerHTML=tabla;
+    
       //girar todas las cartas a los 2 segundos
       setTimeout(girarTodas, 2000);
     })
@@ -40,16 +49,19 @@ function mostrarTablero() {
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
-  document.getElementById("tablero").innerHTML += `
-  <div class=card  id=${id}>
+  
+  let carta=`
+  <th><div class=card  id=${id}>
       <div class=front >
           <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
       </div>
       <div class="back">
-      <img src="https://i.pinimg.com/originals/1a/58/3f/1a583fac90a845c9103e66f10ca9f19b.jpg" onclick="girarCarta(${id})" alt="">
+      <img src="./media/card-back.png" onclick="girarCarta(${id})" alt="">
       </div>
-  </div>
- `;
+  </div></th>
+ `
+ return carta
+ 
 }
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
@@ -62,9 +74,10 @@ function genPosRan() {
 }
 
 function resetTablero() {
+  blockStart=true;
   numJugadas = 0;
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
-  numAciertos = 0;
+  //numAciertos = 0;
   // document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
   mostrarTablero();
 }
@@ -79,7 +92,7 @@ let tresNo = false;
 comprueba pareja. Si es pareja se queda volteada, si no se gira al 1 sec. */
 function girarCarta(id) {
   //si pulsamos la misma carta dos veces o ya hay dos giradas no deja pulsar una tercera
-  if (indice1 == id || tresNo) {
+  if (indice1 == id || tresNo || blockStart) {
     return;
   }
   //si pulsamos una carta de una pareja ya encontrada no la volteamos
@@ -111,10 +124,10 @@ function girarCarta(id) {
       tresNo = false;
       valoresEncontrados.push(indice1);
       valoresEncontrados.push(id);
-      numAciertos++; //aumentamos en 1 el valor de aciertos
+      /* numAciertos++; //aumentamos en 1 el valor de aciertos
       document.getElementById(
         "numAciertos"
-      ).innerHTML = `<h2>${numAciertos}</h2>`;
+      ).innerHTML = `<h2>${numAciertos}</h2>`; */
       ganar(); //función que comprueba si hemos terminado el juego
     }
     valor1 = null;
@@ -123,6 +136,7 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
+  blockStart=false; 
   for (let i = 0; i < 16; i++) {
     document.getElementById(i).classList.toggle("flipCard");
   }
@@ -141,19 +155,35 @@ function ganar() {
     setTimeout(function () {
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
-      <h1>Enhorabuena has ganado!</h1>
-      <h2>¿Deseas registrar tu puntuación?</h2>
-      <div id="saveScoreQuestion">
-        <button onclick="showInput()">Si</button>
-        <button onclick="showRanking()">No</button>
+      <div id="fireworks-flip"></div>
+      <div id="ranking">
+        <h1>¡Enhorabuena has ganado!</h1>
+        <h2>¿Deseas registrar tu puntuación?</h2>
+        <div id="saveScoreQuestion">
+          <button onclick="showInput()">Si</button>
+          <button onclick="showRanking()">No</button>
+        </div>
+        <div id="saveScore">
+          <h2>Escribe tu nombre o apodo:</h2>
+          
+          <input type="text" id="name" placeholder="Nombre">
+          <button onclick="saveScoreAndShowRanking()">Guardar</button>
+        </div>
       </div>
-      <div id="saveScore">
-        <h2>Escribe tu nombre o apodo:</h2>
-        
-        <input type="text" id="name" placeholder="Nombre">
-        <button onclick="saveScoreAndShowRanking()">Guardar</button>
-      </div>
+      <div id="fireworks"></div>
       `;
+      document.getElementById("tablero").style.justifyContent = "center";
+      document.getElementById("tablero").style.backgroundImage =
+        "url('./media/jungle-night-background.jpeg')";
+      document.getElementById("tablero").style.fontFamily =
+        "Rampart One, cursive";
+      document.getElementById("tablero").style.color = "white";
+      document.getElementById("tablero").style.display = "flex";
+      document.getElementById("tablero").style.backgroundSize = "cover";
+      document.getElementById("tablero").style.minHeight = "80%";
+      document.getElementById("tablero").style.width = "100%";
+      document.getElementById("tablero").style.position = "absolute";
+      document.getElementById("tablero").style.marginLeft = "0px";
     }, 1000);
   }
 }
@@ -166,11 +196,13 @@ function showRanking() {
   fetch("/api/ranking")
     .then((res) => res.json())
     .then((data) => {
-      let htmlCode = "";
+      let htmlCode = "<h1>RANKING</h1>";
       for (let i = 0; i < data.results.length; i++) {
         htmlCode += `
+        <div id="listaRanking">
         <h2>${data.results[i].name}</h2>
-        <h3>${data.results[i].score}</h3>\n
+        <h3>${data.results[i].score}</h3>
+        </div>
         `;
       }
       document.getElementById(
