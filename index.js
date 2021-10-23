@@ -5,7 +5,7 @@ mostrarTablero()
 let posiciones;
 function mostrarTablero(){
   fetch("https://botw-compendium.herokuapp.com/api/v2")
-  .then((res) => res.json())
+  .then(handleResponse)
   .then(function cogerData(data) {
     let catObject;
     catObject = data.data.creatures.non_food;
@@ -21,7 +21,9 @@ function mostrarTablero(){
     }
     //girar todas las cartas a los 2 segundos
     setTimeout(girarTodas,2000);      
-  });
+  }).catch(error => {
+    document.getElementById("tablero").innerHTML=`<div><h1>${error}</h1><h2>Parece que hay un problema, intenta de nuevo más tarde.</h2></div>`;
+})
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
@@ -115,4 +117,22 @@ function ganar(){
       document.getElementById("tablero").innerHTML="<h1>Enhorabuena has ganado!</h1>"
   },1000);
 }};
+
+/* Fuente para manejar el error de la API: https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
+Si la respuesta es OK, devuelv el JSON, si no devuelve error */
+//FUNCIÓN MANEJAR RESPUESTA
+function handleResponse(response) {
+  return response.json()
+      .then((json) => {
+          if (!response.ok) {
+              const error = Object.assign({}, json, {
+                  status: response.status,
+                  statusText: response.statusText,
+              });
+
+              return Promise.reject(error);
+          }
+          return json;
+      });
+}
 
