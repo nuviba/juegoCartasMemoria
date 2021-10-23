@@ -17,8 +17,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 10px;
-  /* position: absolute; */
-  /* transform: translate(-50%, -50%); */
+  margin: 10px;
 }
 .card {
   height: 220px;

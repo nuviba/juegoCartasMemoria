@@ -34,11 +34,7 @@ function templateCard(id, objeto, posicion) {
       <img src="https://i.pinimg.com/originals/1a/58/3f/1a583fac90a845c9103e66f10ca9f19b.jpg" onclick="girarCarta(${id})" alt="">
       </div>
   </div>
- `;
-
-  document.getElementById("tablero").style.margin = "10px";
-  document.getElementById("tablero").style.marginBottom = "10px";
-}
+ `;}
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
 function genPosRan() {
@@ -46,7 +42,7 @@ function genPosRan() {
   arrayOriginal.sort(function () {
     return Math.random() - 0.5;
   });
-  return arrayOriginal;
+    return arrayOriginal;
 }
 
 function resetTablero(){
@@ -58,37 +54,40 @@ let valor2;
 let indice1;
 let valoresEncontrados=[];
 let tresNo=false;
+//función principal del juego, gira las cartas al hacer click, comprueba pareja. Si es pareja se queda volteada, si no se gira al 1 sec. 
 function girarCarta (id){
-  console.log(valoresEncontrados);
+  //si pulsamos la misma carta dos veces o ya hay dos giradas no deja pulsar una tercera
   if(indice1==id||tresNo){
     return;
   }
+  //si pulsamos una carta de una pareja ya encontrada no la volteamos
   for(let i=0;i<valoresEncontrados.length;i++){
     if(valoresEncontrados[i]==id){
       return;
     }
   }
-
+  //comprobamos si estamos en la primera o en la segunda jugada del turno
+  //si es la primera jugada guardamos el valor de la carta y su índice
   if(valor1==null){
     document.getElementById(id).classList.toggle("flipCard");
     valor1=posiciones[id];
-    //console.log(valor1);
     indice1=id;
   }
-  
+  //si es la segunda jugada comparamos el valor de la primera y segunda carta, activamos el veto a la tercera
   else{
     tresNo=true;
     document.getElementById(id).classList.toggle("flipCard");
     valor2=posiciones[id];
-    //console.log(id);
+      //si las dos cartas no son iguales las giramos al segundo
       if(valor1!=valor2){
         girarDos(indice1,id);  
       }
+      //si son iguales guardamos su valor en el array "valoresEncontrados" para que no se puedan volver a girar
       else{
         tresNo=false;
         valoresEncontrados.push(indice1);
         valoresEncontrados.push(id);
-        ganar();
+        ganar();//función que comprueba si hemos terminado el juego
       }
       valor1=null;
       indice1=null;
@@ -96,7 +95,6 @@ function girarCarta (id){
 }
 
 function girarTodas(){
-
   for(let i=0;i<16;i++){
     document.getElementById(i).classList.toggle("flipCard");
   }
@@ -104,7 +102,7 @@ function girarTodas(){
 
 function girarDos(id1,id2){
     setTimeout(function (){
-      tresNo=false;
+      tresNo=false;//liberamos girar tercera carta
       document.getElementById(id1).classList.toggle("flipCard");
       document.getElementById(id2).classList.toggle("flipCard")}
       ,1000);
