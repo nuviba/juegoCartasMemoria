@@ -12,6 +12,7 @@ document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
 
 //pendiente de cambiar api y modificar llamada
 let posiciones;
+let blockStart=true;
 function mostrarTablero() {
   fetch("https://botw-compendium.herokuapp.com/api/v2")
     .then(handleResponse)
@@ -24,11 +25,19 @@ function mostrarTablero() {
       posiciones = genPosRan();
       console.log(posiciones);
       //recorremos las posiciones
-      for (let i = 0; i < posiciones.length; i++) {
-        //para cada posición mostramos una carta
+      
+      let tabla=`<table class=tableCards>`;
+      for (let i=0;i<4;i++){
+          tabla+=`<tr>`
+          for(let j=0;j<4;j++){
+          tabla+=templateCard(j+4*i, catObject[posiciones[j+4*i]], posiciones[j+4*i])
+          }
+          tabla+=`</tr>`
+      }   
+      tabla+=`</table>`
 
-        templateCard(i, catObject[posiciones[i]], posiciones[i]);
-      }
+      document.getElementById("tablero").innerHTML=tabla;
+    
       //girar todas las cartas a los 2 segundos
       setTimeout(girarTodas, 2000);
     })
@@ -40,16 +49,19 @@ function mostrarTablero() {
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
-  document.getElementById("tablero").innerHTML += `
-  <div class=card  id=${id}>
+  
+  let carta=`
+  <th><div class=card  id=${id}>
       <div class=front >
           <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
       </div>
       <div class="back">
       <img src="./media/card-back.png" onclick="girarCarta(${id})" alt="">
       </div>
-  </div>
- `;
+  </div></th>
+ `
+ return carta
+ 
 }
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
@@ -62,9 +74,10 @@ function genPosRan() {
 }
 
 function resetTablero() {
+  blockStart=true;
   numJugadas = 0;
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
-  numAciertos = 0;
+  //numAciertos = 0;
   // document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
   mostrarTablero();
 }
@@ -79,7 +92,7 @@ let tresNo = false;
 comprueba pareja. Si es pareja se queda volteada, si no se gira al 1 sec. */
 function girarCarta(id) {
   //si pulsamos la misma carta dos veces o ya hay dos giradas no deja pulsar una tercera
-  if (indice1 == id || tresNo) {
+  if (indice1 == id || tresNo || blockStart) {
     return;
   }
   //si pulsamos una carta de una pareja ya encontrada no la volteamos
@@ -111,10 +124,10 @@ function girarCarta(id) {
       tresNo = false;
       valoresEncontrados.push(indice1);
       valoresEncontrados.push(id);
-      numAciertos++; //aumentamos en 1 el valor de aciertos
+      /* numAciertos++; //aumentamos en 1 el valor de aciertos
       document.getElementById(
         "numAciertos"
-      ).innerHTML = `<h2>${numAciertos}</h2>`;
+      ).innerHTML = `<h2>${numAciertos}</h2>`; */
       ganar(); //función que comprueba si hemos terminado el juego
     }
     valor1 = null;
@@ -123,6 +136,7 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
+  blockStart=false; 
   for (let i = 0; i < 16; i++) {
     document.getElementById(i).classList.toggle("flipCard");
   }
