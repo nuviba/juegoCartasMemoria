@@ -1,3 +1,4 @@
+let saludoFinJuego = 0;
 let sonido = new Audio();
 sonido.src = "./sonidos/blackjack_1.mp3";
 let sonidoAcierto = new Audio();
@@ -175,7 +176,7 @@ function girarDos(id1, id2) {
 
 function ganar() {
   if (valoresEncontrados.length == tamaño * tamaño) {
-    //if (tamaño*tamaño == tamaño*tamaño) {
+    //if (tamaño * tamaño == tamaño * tamaño) {
     setTimeout(function () {
       sonidoFin.play();
       valoresEncontrados = [];
@@ -185,14 +186,14 @@ function ganar() {
         <h1>¡Enhorabuena has ganado!</h1>
         <h2>¿Deseas registrar tu puntuación?</h2>
         <div id="saveScoreQuestion">
-          <button onclick="showInput()">Si</button>
-          <button onclick="showRanking()">No</button>
+          <button id="ranking-button" onclick="showInput()"><img id="ranking-button-img" src="./media/hojaSi.png" alt="iconoSi" /></button>
+          <button id="ranking-button" onclick="showRanking()"><img id="ranking-button-img" src="./media/respuestaNo.png" alt="iconoNo" /></button>
         </div>
         <div id="saveScore">
           <h2>Escribe tu nombre o apodo:</h2>
           
           <input type="text" id="name" placeholder="Nombre">
-          <button onclick="saveScoreAndShowRanking()">Guardar</button>
+          <button id="saveButton" onclick="saveScoreAndShowRanking()">Guardar</button>
         </div>
       </div>
       <div id="fireworks"></div>
@@ -209,6 +210,9 @@ function ganar() {
       document.getElementById("tablero").style.width = "100%";
       document.getElementById("tablero").style.position = "absolute";
       document.getElementById("tablero").style.marginLeft = "0px";
+      document.getElementById("cartelTablero").style.display = "none";
+      document.getElementById("cartelTablero2").style.display = "none";
+      document.getElementById("tablero-Up").style.display = "none";
     }, 1000);
   }
 }
@@ -227,15 +231,33 @@ function showRanking() {
         <div id="listaRanking">
         <h2>${data.results[i].name}</h2>
         <h3>${data.results[i].score}</h3>
-        </div>
-        `;
+        </div>`;
       }
       document.getElementById(
         "tablero"
       ).innerHTML = `<div id="ranking">${htmlCode}</div>`;
+      document.getElementById("ranking").style.height = "500px";
+      document.getElementById("ranking").style.width = "450px";
+      document.getElementById("ranking").style.overflowY = "scroll";
+      document.getElementById("tablero").innerHTML += `<div id="FinJuego"> 
+      <a href="index.html"> <button id="cartel-fin-button"></button></a>
+      <a href="tablero.html"> <button id="cartel-fin-button"></button></a>
+      <a href="#"><button id="cartel-fin-button" onclick="finJuego()"></button></a>
+      </div>`;
+      document.getElementById("tablero").style.justifyContent = "space-around";
+      document.getElementById("tablero").style.alignItems = "center";
     });
 }
-
+function finJuego() {
+  if (saludoFinJuego == 0) {
+    document.getElementById("tablero").innerHTML += ` <h2>
+    ¡Buena memoria! ¿Sabías que el estímulo de identificar parejas permite
+    acelerar la agilidad mental? Buen entreno y ¡Gracias por jugar, espero que
+    te hayas divertido!
+  </h2>`;
+    saludoFinJuego++;
+  }
+}
 function saveScoreAndShowRanking() {
   let registry = {
     name: document.getElementById("name").value,
