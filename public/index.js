@@ -1,8 +1,21 @@
+let sonido=new Audio();
+sonido.src="./sonidos/blackjack_1.mp3"
+let sonidoAcierto=new Audio();
+sonidoAcierto.src="./sonidos/acierto.mp3"
+let sonidoFin=new Audio();
+sonidoFin.src="./sonidos/fin.mov"
 //const methods = require("methods");
+let tamaño=document.getElementById("dificultad").value;
+function cambiarDificultad(){
+
+   tamaño=document.getElementById("dificultad").value;
+   mostrarTablero();
+
+}
 
 //queremos que al entrar a tablero.html ya se muestre el tablero
-mostrarTablero();
 
+mostrarTablero();
 //---------CONTADOR-------------
 
 let numJugadas = 0;
@@ -19,18 +32,17 @@ function mostrarTablero() {
     .then(function cogerData(data) {
       let catObject;
       catObject = data.data.creatures.non_food;
-
       document.getElementById("tablero").innerHTML = "";
       //generamos una array de posiciones aleatorias con parejas
       posiciones = genPosRan();
       console.log(posiciones);
       //recorremos las posiciones
-      
+      //creamos tabla para alinear las cartas
       let tabla=`<table class=tableCards>`;
-      for (let i=0;i<4;i++){
+      for (let i=0;i<tamaño;i++){
           tabla+=`<tr>`
-          for(let j=0;j<4;j++){
-          tabla+=templateCard(j+4*i, catObject[posiciones[j+4*i]], posiciones[j+4*i])
+          for(let j=0;j<tamaño;j++){
+          tabla+=templateCard(j+tamaño*i, catObject[posiciones[j+tamaño*i]], posiciones[j+tamaño*i])
           }
           tabla+=`</tr>`
       }   
@@ -49,7 +61,7 @@ function mostrarTablero() {
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
-  
+  //insertamos cada div en una celda de tabla 
   let carta=`
   <th><div class=card  id=${id}>
       <div class=front >
@@ -66,7 +78,11 @@ function templateCard(id, objeto, posicion) {
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
 function genPosRan() {
-  let arrayOriginal = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7];
+  let arrayOriginal = [];
+  for (let i=0;i<tamaño*tamaño/2;i++){
+    arrayOriginal.push(i);
+    arrayOriginal.push(i);
+  }
   arrayOriginal.sort(function () {
     return Math.random() - 0.5;
   });
@@ -79,6 +95,8 @@ function resetTablero() {
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
   //numAciertos = 0;
   // document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
+  document.getElementById("tablero").style.backgroundImage =
+        null;
   mostrarTablero();
 }
 
@@ -105,6 +123,7 @@ function girarCarta(id) {
   //si es la primera jugada guardamos el valor de la carta y su índice
   if (valor1 == null) {
     document.getElementById(id).classList.toggle("flipCard");
+    sonido.play()
     valor1 = posiciones[id];
     indice1 = id;
   }
@@ -112,18 +131,22 @@ function girarCarta(id) {
   else {
     tresNo = true;
     document.getElementById(id).classList.toggle("flipCard");
+    
     valor2 = posiciones[id];
     numJugadas++; //aumentamos en 1 el num de jugadas
     document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
     //si las dos cartas no son iguales las giramos al segundo
     if (valor1 != valor2) {
+      sonido.play()
       girarDos(indice1, id);
+      
     }
     //si son iguales guardamos su valor en el array "valoresEncontrados" para que no se puedan volver a girar
     else {
       tresNo = false;
       valoresEncontrados.push(indice1);
       valoresEncontrados.push(id);
+      sonidoAcierto.play()
       /* numAciertos++; //aumentamos en 1 el valor de aciertos
       document.getElementById(
         "numAciertos"
@@ -136,9 +159,10 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
-  blockStart=false; 
-  for (let i = 0; i < 16; i++) {
+  blockStart=false;
+  for (let i = 0; i < tamaño*tamaño; i++) {
     document.getElementById(i).classList.toggle("flipCard");
+    sonido.play()
   }
 }
 
@@ -151,8 +175,10 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-  if (valoresEncontrados.length == 16) {
+    if (valoresEncontrados.length == tamaño*tamaño) {
+  //if (tamaño*tamaño == tamaño*tamaño) {
     setTimeout(function () {
+      sonidoFin.play()
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
       <div id="fireworks-flip"></div>
