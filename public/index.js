@@ -26,11 +26,11 @@ document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
 let posiciones;
 let blockStart = true;
 function mostrarTablero() {
-  fetch("https://botw-compendium.herokuapp.com/api/v2")
+  fetch("https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyBJYLV2NQsUb4oI8_kHfUqs_kzGQIdM8Zo&cx=017901247231445677654:zwad8gw42fj&searchType=image&q=site:https://kids.nationalgeographic.com/animals")
     .then(handleResponse)
     .then(function cogerData(data) {
       let catObject;
-      catObject = data.data.creatures.non_food;
+      catObject = data.items;
       document.getElementById("tablero").innerHTML = "";
       //generamos una array de posiciones aleatorias con parejas
       posiciones = genPosRan();
@@ -68,7 +68,7 @@ function templateCard(id, objeto, posicion) {
   let carta = `
   <th><div class=card  id=${id}>
       <div class=front >
-          <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
+          <img src=${objeto.link} onclick="girarCarta(${id})" alt="zelda objet">
       </div>
       <div class="back">
       <img src="./media/explorador.png" onclick="girarCarta(${id})" alt="">
