@@ -35,10 +35,14 @@
       />
       <div>
         <label for="dificultad"><b>Selecciona la dificultad</b> </label>
-          <select onchange="cambiarDificultad()" name="dificultad" id="dificultad">
-            <option value=4>Fácil (4x4)</option>
-            <option value=6>Dificil (6x6)</option>
-          </select>
+        <select
+          onchange="cambiarDificultad()"
+          name="dificultad"
+          id="dificultad"
+        >
+          <option value="4">Fácil (4x4)</option>
+          <option value="6">Dificil (6x6)</option>
+        </select>
       </div>
     </header>
 
@@ -56,8 +60,27 @@
           <div id="numJugadas"></div>
         </div>
       </div>
-
-      <div id="tablero"></div>
+      <div id="tablero-Down">
+        <div id="tablero"></div>
+      </div>
+      <div id="main-bottom">
+        <div id="cartelTablero">
+          <img
+            src="./media/cartel_elefante.png"
+            alt="cartas_icono"
+            width="280"
+            height="280"
+          />
+        </div>
+        <div id="cartelTablero">
+          <img
+            src="./media/pecescarte.png"
+            alt="cartas_icono"
+            width="280"
+            height="280"
+          />
+        </div>
+      </div>
     </main>
     <footer>
       <div>
