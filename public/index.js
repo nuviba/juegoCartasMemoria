@@ -1,16 +1,14 @@
-let sonido=new Audio();
-sonido.src="./sonidos/blackjack_1.mp3"
-let sonidoAcierto=new Audio();
-sonidoAcierto.src="./sonidos/acierto.mp3"
-let sonidoFin=new Audio();
-sonidoFin.src="./sonidos/fin.mov"
+let sonido = new Audio();
+sonido.src = "./sonidos/blackjack_1.mp3";
+let sonidoAcierto = new Audio();
+sonidoAcierto.src = "./sonidos/acierto.mp3";
+let sonidoFin = new Audio();
+sonidoFin.src = "./sonidos/fin.mov";
 //const methods = require("methods");
-let tamaño=document.getElementById("dificultad").value;
-function cambiarDificultad(){
-
-   tamaño=document.getElementById("dificultad").value;
-   mostrarTablero();
-
+let tamaño = document.getElementById("dificultad").value;
+function cambiarDificultad() {
+  tamaño = document.getElementById("dificultad").value;
+  mostrarTablero();
 }
 
 //queremos que al entrar a tablero.html ya se muestre el tablero
@@ -25,7 +23,7 @@ document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
 
 //pendiente de cambiar api y modificar llamada
 let posiciones;
-let blockStart=true;
+let blockStart = true;
 function mostrarTablero() {
   fetch("https://botw-compendium.herokuapp.com/api/v2")
     .then(handleResponse)
@@ -38,18 +36,22 @@ function mostrarTablero() {
       console.log(posiciones);
       //recorremos las posiciones
       //creamos tabla para alinear las cartas
-      let tabla=`<table class=tableCards>`;
-      for (let i=0;i<tamaño;i++){
-          tabla+=`<tr>`
-          for(let j=0;j<tamaño;j++){
-          tabla+=templateCard(j+tamaño*i, catObject[posiciones[j+tamaño*i]], posiciones[j+tamaño*i])
-          }
-          tabla+=`</tr>`
-      }   
-      tabla+=`</table>`
+      let tabla = `<table class=tableCards>`;
+      for (let i = 0; i < tamaño; i++) {
+        tabla += `<tr>`;
+        for (let j = 0; j < tamaño; j++) {
+          tabla += templateCard(
+            j + tamaño * i,
+            catObject[posiciones[j + tamaño * i]],
+            posiciones[j + tamaño * i]
+          );
+        }
+        tabla += `</tr>`;
+      }
+      tabla += `</table>`;
 
-      document.getElementById("tablero").innerHTML=tabla;
-    
+      document.getElementById("tablero").innerHTML = tabla;
+
       //girar todas las cartas a los 2 segundos
       setTimeout(girarTodas, 2000);
     })
@@ -61,25 +63,24 @@ function mostrarTablero() {
 }
 //función para crear las cartas individuales
 function templateCard(id, objeto, posicion) {
-  //insertamos cada div en una celda de tabla 
-  let carta=`
+  //insertamos cada div en una celda de tabla
+  let carta = `
   <th><div class=card  id=${id}>
       <div class=front >
           <img src=${objeto.image} onclick="girarCarta(${id})" alt="zelda objet">
       </div>
       <div class="back">
-      <img src="./media/card-back.png" onclick="girarCarta(${id})" alt="">
+      <img src="./media/explorador.png" onclick="girarCarta(${id})" alt="">
       </div>
   </div></th>
- `
- return carta
- 
+ `;
+  return carta;
 }
 
 //generamos las posiciones en el tablero duplicando las cartas y de forma aleatoria
 function genPosRan() {
   let arrayOriginal = [];
-  for (let i=0;i<tamaño*tamaño/2;i++){
+  for (let i = 0; i < (tamaño * tamaño) / 2; i++) {
     arrayOriginal.push(i);
     arrayOriginal.push(i);
   }
@@ -90,13 +91,12 @@ function genPosRan() {
 }
 
 function resetTablero() {
-  blockStart=true;
+  blockStart = true;
   numJugadas = 0;
   document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
   //numAciertos = 0;
   // document.getElementById("numAciertos").innerHTML = `<h2>${numAciertos}</h2>`;
-  document.getElementById("tablero").style.backgroundImage =
-        null;
+  document.getElementById("tablero").style.backgroundImage = null;
   mostrarTablero();
 }
 
@@ -123,7 +123,7 @@ function girarCarta(id) {
   //si es la primera jugada guardamos el valor de la carta y su índice
   if (valor1 == null) {
     document.getElementById(id).classList.toggle("flipCard");
-    sonido.play()
+    sonido.play();
     valor1 = posiciones[id];
     indice1 = id;
   }
@@ -131,22 +131,21 @@ function girarCarta(id) {
   else {
     tresNo = true;
     document.getElementById(id).classList.toggle("flipCard");
-    
+
     valor2 = posiciones[id];
     numJugadas++; //aumentamos en 1 el num de jugadas
     document.getElementById("numJugadas").innerHTML = `<h2>${numJugadas}</h2>`;
     //si las dos cartas no son iguales las giramos al segundo
     if (valor1 != valor2) {
-      sonido.play()
+      sonido.play();
       girarDos(indice1, id);
-      
     }
     //si son iguales guardamos su valor en el array "valoresEncontrados" para que no se puedan volver a girar
     else {
       tresNo = false;
       valoresEncontrados.push(indice1);
       valoresEncontrados.push(id);
-      sonidoAcierto.play()
+      sonidoAcierto.play();
       /* numAciertos++; //aumentamos en 1 el valor de aciertos
       document.getElementById(
         "numAciertos"
@@ -159,10 +158,10 @@ function girarCarta(id) {
 }
 
 function girarTodas() {
-  blockStart=false;
-  for (let i = 0; i < tamaño*tamaño; i++) {
+  blockStart = false;
+  for (let i = 0; i < tamaño * tamaño; i++) {
     document.getElementById(i).classList.toggle("flipCard");
-    sonido.play()
+    sonido.play();
   }
 }
 
@@ -175,10 +174,10 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-    if (valoresEncontrados.length == tamaño*tamaño) {
-  //if (tamaño*tamaño == tamaño*tamaño) {
+  if (valoresEncontrados.length == tamaño * tamaño) {
+    //if (tamaño*tamaño == tamaño*tamaño) {
     setTimeout(function () {
-      sonidoFin.play()
+      sonidoFin.play();
       valoresEncontrados = [];
       document.getElementById("tablero").innerHTML = `
       <div id="fireworks-flip"></div>
