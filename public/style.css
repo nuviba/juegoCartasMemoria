@@ -16,11 +16,12 @@
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  margin-top: 0px;
   margin: 10px;
 }
 .tableCards {
   height: 500px;
-  width: 50%;
+  width: 90%;
 }
 .card {
   height: 100%;
@@ -102,6 +103,11 @@ header h1 {
   justify-content: space-around;
   justify-items: center;
   flex-direction: column;
+  padding-left: 190px;
+}
+#landing {
+  display: flex;
+  flex-direction: row;
   background-image: url("./media/fondoweb.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -109,6 +115,7 @@ header h1 {
   width: 100%;
   height: auto;
   position: absolute;
+  align-items: flex-end;
 }
 #intro {
   border-color: black;
@@ -137,6 +144,23 @@ header h1 {
   justify-content: space-around;
 }
 
+#tablero-Down {
+  display: flex;
+  justify-content: center;
+}
+
+#main-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#cartelTablero {
+  display: flex;
+  align-items: flex-end;
+}
+
 #contador {
   display: flex;
   font-family: "Rampart One", cursive;
@@ -150,7 +174,6 @@ footer {
   max-width: 100%;
   width: 100%;
   margin: 0%;
-  margin-top: 8%;
   /* padding: 10px 0px 0px 15px; */
   columns: 3;
   display: flex;
@@ -265,4 +288,60 @@ footer {
   transform: scaleX(-1);
   filter: FlipH;
   -ms-filter: "FlipH";
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 2561px) {
+  #tablero {
+    height: 570%;
+    width: 100%;
+  }
+  .tableCards {
+    height: 570%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1921px) and (max-width: 2560px) {
+  #tablero {
+    height: 800px;
+    width: 100%;
+  }
+  .tableCards {
+    height: 1000px;
+    width: 60%;
+  }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+  #tablero {
+    height: 450px;
+    width: 62%;
+  }
+  .tableCards {
+    height: 155%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1301px) and (max-width: 1440px) {
+  #tablero {
+    height: 450px;
+    width: 55%;
+  }
+  .tableCards {
+    height: 160%;
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1300px) {
+  #tablero {
+    height: 450px;
+    width: 55%;
+  }
+  .tableCards {
+    height: 100%;
+    width: 100%;
+  }
 }
