@@ -33,31 +33,35 @@
         href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap"
         rel="stylesheet"
       />
-      <div>
-        <label for="dificultad"><b>Selecciona la dificultad</b> </label>
-        <select
-          onchange="cambiarDificultad()"
-          name="dificultad"
-          id="dificultad"
-        >
-          <option value="4">Fácil (4x4)</option>
-          <option value="6">Dificil (6x6)</option>
-        </select>
-      </div>
     </header>
 
     <main id="main-Tablero">
       <div id="tablero-Up">
-        <button id="reset-button" type="button" onclick="resetTablero()">
-          <img
-            id="reset-button-img"
-            src="./iconos/reset-button.png"
-            alt="cartas_icono"
-          />
-        </button>
+        <a href="tablero.html">
+          <button id="reset-button" type="button" onclick="resetTablero()">
+            <img
+              id="reset-button-img"
+              src="./iconos/reset-button.png"
+              alt="cartas_icono"
+            />
+          </button>
+        </a>
         <div id="contador">
           <h2>Nº de jugadas:</h2>
           <div id="numJugadas"></div>
+        </div>
+        <div id="containerNivel">
+          <label id="nivel" for="dificultad"
+            ><h2>Selecciona la dificultad:</h2>
+          </label>
+          <select
+            onchange="cambiarDificultad()"
+            name="dificultad"
+            id="dificultad"
+          >
+            <option value="4">Fácil (4x4)</option>
+            <option value="6">Dificil (6x6)</option>
+          </select>
         </div>
       </div>
       <div id="tablero-Down">
@@ -72,7 +76,7 @@
             height="280"
           />
         </div>
-        <div id="cartelTablero">
+        <div id="cartelTablero2">
           <img
             src="./media/pecescarte.png"
             alt="cartas_icono"
