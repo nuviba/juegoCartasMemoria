@@ -142,6 +142,7 @@ header h1 {
 #tablero-Up {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 #tablero-Down {
@@ -157,6 +158,10 @@ header h1 {
 }
 
 #cartelTablero {
+  display: flex;
+  align-items: flex-end;
+}
+#cartelTablero2 {
   display: flex;
   align-items: flex-end;
 }
@@ -250,13 +255,77 @@ footer {
   width: 150px;
   height: 60px;
 }
+#containerNivel {
+  display: flex;
+  align-items: baseline;
+}
+#nivel {
+  font-family: "Rampart One", cursive;
+  padding-right: 10px;
+}
+#dificultad {
+  font-family: "Rampart One", cursive;
+  border-color: green;
+  background-color: rgba(0, 128, 0, 0.363);
+}
+#saveButton {
+  font-family: "Rampart One", cursive;
+  border-color: green;
+  background-color: white;
+}
+#ranking-button {
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+}
+#ranking-button-img {
+  width: 100px;
+  height: 70px;
+}
+#ranking-button-img:hover {
+  width: 120px;
+  height: 90px;
+}
+
+#inicioJuego-button {
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+}
+
+#FinJuego {
+  background-image: url("./media/botonesranking.png");
+  background-repeat: no-repeat;
+  height: 550px;
+  width: 400px;
+}
+
+#cartel-fin-button:hover {
+  cursor: pointer;
+  border-color: rgba(0, 142, 31, 0.05);
+}
+
+#cartel-fin-button {
+  width: 400px;
+  height: 130px;
+  border: 0;
+  border-color: none;
+  background-color: Transparent;
+  margin-top: 10px;
+}
+
 /* ----RANKING ---- */
 
 #ranking {
   display: block;
   text-align: center;
-  height: fit-content;
-  margin-top: 100px;
+  height: 300px;
+  margin-top: 60px;
+  margin-bottom: 60px;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 38%);
   background-color: rgb(3 9 2 / 41%);
   padding-left: 90px;
@@ -334,6 +403,9 @@ footer {
     height: 160%;
     width: 100%;
   }
+  #ranking {
+    height: 300px !important;
+  }
 }
 @media (min-width: 1024px) and (max-width: 1300px) {
   #tablero {
@@ -343,5 +415,8 @@ footer {
   .tableCards {
     height: 100%;
     width: 100%;
+  }
+  #ranking {
+    height: 300px !important;
   }
 }
