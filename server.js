@@ -22,8 +22,6 @@ MongoClient.connect("mongodb://localhost:27017", (err, client) => {
 
 //---------- CALLS to API ---------
 
-
-
 // Gets all the scores sorted.
 app.get("/api/ranking/facil", (req, res) => {
   app.locals.db
@@ -58,8 +56,7 @@ app.post("/api/addScore/facil", (req, res) => {
     (err, datos) => {
       err
         ? (console.log(err), res.send({ mensaje: "error" + err }))
-        : (console.log(datos),
-          res.send(datos));
+        : (console.log(datos), res.send(datos));
     }
   );
 });
@@ -72,8 +69,7 @@ app.post("/api/addScore/dificil", (req, res) => {
     (err, datos) => {
       err
         ? (console.log(err), res.send({ mensaje: "error" + err }))
-        : (console.log(datos),
-          res.send(datos));
+        : (console.log(datos), res.send(datos));
     }
   );
 });

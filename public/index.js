@@ -175,7 +175,7 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-    if (valoresEncontrados.length == tamaño * tamaño) {
+  if (valoresEncontrados.length == tamaño * tamaño) {
     //if (tamaño * tamaño == tamaño * tamaño) {
     setTimeout(function () {
       sonidoFin.play();
@@ -290,32 +290,31 @@ function saveScoreAndShowRanking() {
     name: document.getElementById("name").value,
     score: numJugadas,
   };
-  if(tamaño==4)
-  {
+  if (tamaño == 4) {
     showRankingEasy();
-  fetch("/api/addScore/facil", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(registry),
-  })
-    .then((res) => res.json())
-    .then((data) => {});
+    fetch("/api/addScore/facil", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registry),
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  } else {
+    showRankingDificult();
+    fetch("/api/addScore/dificil", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registry),
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
 }
-else{
-  showRankingDificult();
-  fetch("/api/addScore/dificil", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(registry),
-  })
-    .then((res) => res.json())
-    .then((data) => {});
-}}
- 
+
 /* Fuente para manejar el error de la API: https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
 Si la respuesta es OK, devuelv el JSON, si no devuelve error */
 //FUNCIÓN MANEJAR RESPUESTA
