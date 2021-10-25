@@ -19,6 +19,7 @@
   </head>
   <body>
     <header>
+      <button id="soundButton" onclick="toggleMusic()"> <img id="sound" src="./iconos/soundOn.png" alt="apagarmusica"> </button>
       <div id="title">
         <img src="./iconos/cartas.png" alt="cartas_icono" />
         <h1>MEMORY GAME</h1>
@@ -26,7 +27,9 @@
       </div>
     </header>
     <main id="landing">
-      <div id="cartel"><img src="./media/preguntamemoria.png" alt="cartas_icono" width="450" height="450"/></div>
+      <div id="cartel">
+        <img src="./media/preguntamemoria.png" alt="cartas_icono" width="450" height="450"/>
+      </div>
       <div id="main-landing-page">
         <div id="intro">
         <h1>¿Tienes memoria fotografica?</h1>
@@ -49,8 +52,7 @@
         </div>
       </div>
       <!-- <div id="cartel"><img src="./media/preguntamemoria.png" alt="cartas_icono" /></div>
-       -->
-      
+       -->  
     </main>
     <footer>
       <div>
@@ -66,5 +68,6 @@
       </div>
     </footer>
   </body>
+  <script src="./musica.js"></script>
 </html>
 
