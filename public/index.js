@@ -175,8 +175,8 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-  //if (valoresEncontrados.length == tamaño * tamaño) {
-    if (tamaño * tamaño == tamaño * tamaño) {
+    if (valoresEncontrados.length == tamaño * tamaño) {
+    //if (tamaño * tamaño == tamaño * tamaño) {
     setTimeout(function () {
       sonidoFin.play();
       valoresEncontrados = [];
