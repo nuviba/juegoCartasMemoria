@@ -175,8 +175,8 @@ function girarDos(id1, id2) {
 }
 
 function ganar() {
-  if (valoresEncontrados.length == tamaño * tamaño) {
-    //if (tamaño * tamaño == tamaño * tamaño) {
+  //if (valoresEncontrados.length == tamaño * tamaño) {
+    if (tamaño * tamaño == tamaño * tamaño) {
     setTimeout(function () {
       sonidoFin.play();
       valoresEncontrados = [];
@@ -221,24 +221,51 @@ function showInput() {
   document.getElementById("saveScore").style.display = "block";
   document.getElementById("saveScoreQuestion").style.display = "none";
 }
-function showRanking() {
-  fetch("/api/ranking")
+function showRankingEasy() {
+  fetch("/api/ranking/facil")
     .then((res) => res.json())
     .then((data) => {
-      let htmlCode = "<h1>RANKING</h1>";
+      let htmlCode = "<h1>RANKING MODO FÁCIL</h1>";
       for (let i = 0; i < data.results.length; i++) {
         htmlCode += `
-        <div id="listaRanking">
+        <div id="listaRankingFacil">
         <h2>${data.results[i].name}</h2>
         <h3>${data.results[i].score}</h3>
         </div>`;
       }
       document.getElementById(
         "tablero"
-      ).innerHTML = `<div id="ranking">${htmlCode}</div>`;
-      document.getElementById("ranking").style.height = "500px";
-      document.getElementById("ranking").style.width = "450px";
-      document.getElementById("ranking").style.overflowY = "scroll";
+      ).innerHTML = `<div id="rankingFacil">${htmlCode}</div>`;
+      document.getElementById("rankingFacil").style.height = "500px";
+      document.getElementById("rankingFacil").style.width = "450px";
+      document.getElementById("rankingFacil").style.overflowY = "scroll";
+      document.getElementById("tablero").innerHTML += `<div id="FinJuego"> 
+      <a href="index.html"> <button id="cartel-fin-button"></button></a>
+      <a href="tablero.html"> <button id="cartel-fin-button"></button></a>
+      <a href="#"><button id="cartel-fin-button" onclick="finJuego()"></button></a>
+      </div>`;
+      document.getElementById("tablero").style.justifyContent = "space-around";
+      document.getElementById("tablero").style.alignItems = "center";
+    });
+}
+function showRankingDificult() {
+  fetch("/api/ranking/dificil")
+    .then((res) => res.json())
+    .then((data) => {
+      let htmlCode = "<h1>RANKING MODO DIFÍCIL</h1>";
+      for (let i = 0; i < data.results.length; i++) {
+        htmlCode += `
+        <div id="listaRankingDificil">
+        <h2>${data.results[i].name}</h2>
+        <h3>${data.results[i].score}</h3>
+        </div>`;
+      }
+      document.getElementById(
+        "tablero"
+      ).innerHTML = `<div id="rankingDificil">${htmlCode}</div>`;
+      document.getElementById("rankingDificil").style.height = "500px";
+      document.getElementById("rankingDificil").style.width = "450px";
+      document.getElementById("rankingDificil").style.overflowY = "scroll";
       document.getElementById("tablero").innerHTML += `<div id="FinJuego"> 
       <a href="index.html"> <button id="cartel-fin-button"></button></a>
       <a href="tablero.html"> <button id="cartel-fin-button"></button></a>
@@ -263,7 +290,10 @@ function saveScoreAndShowRanking() {
     name: document.getElementById("name").value,
     score: numJugadas,
   };
-  fetch("/api/addScore", {
+  if(tamaño==4)
+  {
+    showRankingEasy();
+  fetch("/api/addScore/facil", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -272,9 +302,20 @@ function saveScoreAndShowRanking() {
   })
     .then((res) => res.json())
     .then((data) => {});
-  showRanking();
 }
-
+else{
+  showRankingDificult();
+  fetch("/api/addScore/dificil", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(registry),
+  })
+    .then((res) => res.json())
+    .then((data) => {});
+}}
+ 
 /* Fuente para manejar el error de la API: https://gist.github.com/odewahn/5a5eeb23279eed6a80d7798fdb47fe91
 Si la respuesta es OK, devuelv el JSON, si no devuelve error */
 //FUNCIÓN MANEJAR RESPUESTA
